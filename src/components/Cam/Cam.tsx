@@ -6,9 +6,14 @@ import { MaterialIcons } from "@expo/vector-icons";
 
 import { styles } from "./styles";
 import CamController from "./CamController";
+import Player from "../Player/Player";
 
 const Cam = () => {
   const controller = CamController();
+
+  if (controller.video) {
+    return <Player video={controller.video} setVideo={controller.setVideo} />;
+  }
 
   return (
     <View style={styles.container}>
@@ -16,6 +21,8 @@ const Cam = () => {
         ref={controller.cameraRef}
         style={styles.camera}
         facing={controller.facing}
+        mode="video"
+        mute={true}
       >
         <View style={styles.bottomBar}>
           <View style={styles.buttonHide} />
@@ -37,7 +44,7 @@ const Cam = () => {
             style={styles.button}
             onPress={controller.handleToggleFacing}
           >
-            <MaterialIcons name="flip-camera-ios" size={40} color="#fff" />
+            <MaterialIcons name="flip-camera-ios" size={30} color="#fff" />
           </TouchableOpacity>
         </View>
       </CameraView>
